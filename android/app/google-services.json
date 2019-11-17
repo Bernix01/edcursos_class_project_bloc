@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "300769305654",
+    "firebase_url": "https://asdfgh-1aa0c.firebaseio.com",
+    "project_id": "asdfgh-1aa0c",
+    "storage_bucket": "asdfgh-1aa0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300769305654:android:d3625d9f32fcce9d1a2497",
+        "android_client_info": {
+          "package_name": "ec.edcursos.asistencia_v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300769305654-45ur40i12psdfugalu052s1e6g4c11sq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1MsXEBiKV_qqd6SqdzEE6cHa8hoqvfvI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300769305654-45ur40i12psdfugalu052s1e6g4c11sq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

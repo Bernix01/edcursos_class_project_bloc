@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>300769305654-fba8l1736j82c2t8p4useilkkc76rnio.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.300769305654-fba8l1736j82c2t8p4useilkkc76rnio</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCErXm9weFtOLy6d3fl5aj7zOD2DYDj2ws</string>
+	<key>GCM_SENDER_ID</key>
+	<string>300769305654</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>ec.edcursos.asistenciaV2</string>
+	<key>PROJECT_ID</key>
+	<string>asdfgh-1aa0c</string>
+	<key>STORAGE_BUCKET</key>
+	<string>asdfgh-1aa0c.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:300769305654:ios:62ef12265a3655011a2497</string>
+	<key>DATABASE_URL</key>
+	<string>https://asdfgh-1aa0c.firebaseio.com</string>
+</dict>
+</plist>
