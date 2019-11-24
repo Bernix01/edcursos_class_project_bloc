@@ -15,7 +15,7 @@ class AuthenticationBloc
       yield LoadingAuthState();
       if (event.user == "pepito" && event.password == "1234") {
         yield AuthenticatedAuthState(
-            UserModel(nombre: "Pepito", esInstructor: false));
+            UserModel(nombre: "pepito", esInstructor: false));
       } else {
         yield ErrorAuthState("Contraseña o usuario incorrectos");
       }

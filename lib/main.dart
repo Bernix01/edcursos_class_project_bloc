@@ -1,6 +1,7 @@
+import 'package:asistencia_v2/asistentes_detalle.dart';
 import 'package:asistencia_v2/authentication/authentication_bloc.dart';
 import 'package:asistencia_v2/authentication/authentication_state.dart';
-import 'package:asistencia_v2/home.dart';
+import 'package:asistencia_v2/root.dart';
 import 'package:asistencia_v2/login/login_page.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      routes: {
+        '/asistentes': (context) => AsistentesDetallePage(),
+      },
       home: BlocProvider<AuthenticationBloc>(
         builder: (context) => AuthenticationBloc(),
         child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
@@ -54,7 +58,7 @@ class MyApp extends StatelessWidget {
               return LoginPage();
             }
             if (state is AuthenticatedAuthState) {
-              return MyHomePage(
+              return RootPage(
                 title: "Hola ${state.user.nombre}",
               );
             }

@@ -1,7 +1,6 @@
 import 'package:asistencia_v2/authentication/authentication_bloc.dart';
 import 'package:asistencia_v2/authentication/authentication_event.dart';
 import 'package:asistencia_v2/authentication/authentication_state.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,10 +19,6 @@ class _LoginFormState extends State<LoginForm> {
   @override
   void initState() {
     super.initState();
-    Firestore.instance
-        .collection('books')
-        .document()
-        .setData({'title': 'title', 'author': 'author'});
   }
 
   @override

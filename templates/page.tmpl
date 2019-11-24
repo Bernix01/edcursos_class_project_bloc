@@ -1,0 +1,30 @@
+/**
+  *
+  * Creado el 23 de noviembre de 2019
+  * Por: Guillermo Bernal
+  * Version de plantilla: 1.0
+  *
+*/
+
+import 'package:flutter/material.dart';
+import 'package:${appName}${relative}/index.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class ${upperName}Page extends StatelessWidget {
+  static const String routeName = "/${privateName}";
+
+  ${upperName}Page({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("${upperName}"),
+      ),
+      body: BlocProvider<${upperName}Bloc>(
+        builder: (context) => ${upperName}Bloc(),
+        child: ${upperName}Screen(),
+      ),
+    );
+  }
+}
