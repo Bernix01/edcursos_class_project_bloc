@@ -34,7 +34,7 @@ class ChatRepository {
             //             .getDocuments())
             //         .documents
             //         .first ??
-            "");
+            "",);
       }).toList();
     });
 

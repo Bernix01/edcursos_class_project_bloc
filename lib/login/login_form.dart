@@ -13,6 +13,7 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController _userTextEditingController = TextEditingController();
   TextEditingController _passwordTextEditingController =
       TextEditingController();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool _esValido = false;
 
@@ -56,49 +57,68 @@ class _LoginFormState extends State<LoginForm> {
             child: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    TextFormField(
-                      decoration: InputDecoration(labelText: "Usuario"),
-                      controller: _userTextEditingController,
-                      onChanged: (string) {
-                        setState(() {
-                          _esValido = string.isNotEmpty &&
-                              _passwordTextEditingController.text.isNotEmpty;
-                        });
-                      },
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(8),
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: "Contraseña"),
-                      obscureText: true,
-                      keyboardType: TextInputType.number,
-                      controller: _passwordTextEditingController,
-                      maxLength: 4,
-                      onChanged: (string) {
-                        setState(() {
-                          _esValido = string.isNotEmpty &&
-                              _userTextEditingController.text.isNotEmpty;
-                        });
-                      },
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(16),
-                    ),
-                    RaisedButton(
-                      child: Text("Iniciar sesión"),
-                      onPressed: _esValido
-                          ? () {
-                              BlocProvider.of<AuthenticationBloc>(context).add(
-                                  LoginEvent(_userTextEditingController.text,
-                                      _passwordTextEditingController.text));
-                            }
-                          : null,
-                    )
-                  ],
+                child: Form(
+                  key: _formKey,
+                  autovalidate: true,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      TextFormField(
+                        decoration: InputDecoration(labelText: "Correo"),
+                        controller: _userTextEditingController,
+                        onChanged: (string) {
+                          setState(() {
+                            _esValido = string.isNotEmpty &&
+                                _passwordTextEditingController.text.isNotEmpty;
+                          });
+                        },
+                        validator: (value) {
+                          if (value.contains("@")) {
+                            return null;
+                          }
+                          return "Campo incorrecto";
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: "Contraseña"),
+                        obscureText: true,
+                        // keyboardType: TextInputType.number,
+                        controller: _passwordTextEditingController,
+                        maxLength: 4,
+                        onChanged: (string) {
+                          setState(() {
+                            _esValido = string.isNotEmpty &&
+                                _userTextEditingController.text.isNotEmpty;
+                          });
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(16),
+                      ),
+                      RaisedButton(
+                        child: Text("Iniciar sesión"),
+                        onPressed: _esValido
+                            ? () {
+                                if (_formKey.currentState.validate()) {
+                                  BlocProvider.of<AuthenticationBloc>(context)
+                                      .add(LoginEvent(
+                                          _userTextEditingController.text,
+                                          _passwordTextEditingController.text));
+                                } else {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text(
+                                        "Revisa la información ingresada."),
+                                    backgroundColor: Colors.red,
+                                  ));
+                                }
+                              }
+                            : null,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
