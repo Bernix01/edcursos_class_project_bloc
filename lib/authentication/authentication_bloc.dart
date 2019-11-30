@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:asistencia_v2/api.dart';
 import 'package:asistencia_v2/authentication/authentication_event.dart';
+import 'package:asistencia_v2/authentication/authentication_repository.dart';
 import 'package:asistencia_v2/authentication/authentication_state.dart';
 import 'package:asistencia_v2/authentication/models/login.dart';
 import 'package:asistencia_v2/authentication/models/user.dart';
@@ -10,35 +11,38 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
+  final AuthenticationRepository _authRepository = AuthenticationRepository();
+
   @override
   AuthenticationState get initialState => UnAuthState();
 
   @override
   Stream<AuthenticationState> mapEventToState(
       AuthenticationEvent event) async* {
+    if (event is CheckTokenEvent) {
+      final bool isLoggedIn = await this._authRepository.isLoggedIn();
+      if (isLoggedIn) {
+        yield AuthenticatedAuthState(
+          UserModel(
+            nombre: "Pepiot",
+            email: "test@email.com",
+            esInstructor: true,
+          ),
+        );
+      } else {
+        yield UnauthenticatedAuthState();
+      }
+    }
     if (event is LoginEvent) {
       yield LoadingAuthState();
       final String user = event.user;
       final String password = event.password;
-
-      final response = await ApiClient.instance.post(
-        "${ApiClient.BASE_URL}/login",
-        body: jsonEncode({
-          "email": user,
-          "password": password,
-        }),
-      );
-
-      final responseData = LoginResponse.fromJson(jsonDecode(response.body));
-
-      if (responseData.success) {
-        // guardar el token
-        final storage = FlutterSecureStorage();
-        await storage.write(key: "token",value: responseData.token);
-        // yield AuthenticatedAuthState(UserModel(nombre: , esInstructor: ))
-        yield ErrorAuthState("asdasd");
+      final LoginResult result =
+          await this._authRepository.login(user, password);
+      if (result.error == null) {
+        yield AuthenticatedAuthState(result.user);
       } else {
-        yield ErrorAuthState("${responseData.err}");
+        yield ErrorAuthState("${result.error}");
       }
       // if (event.user == "pepito" && event.password == "1234") {
       //   yield AuthenticatedAuthState(
@@ -46,6 +50,11 @@ class AuthenticationBloc
       // } else {
 
       // }
+    }
+
+    if (event is LogoutEvent){
+      await this._authRepository.logout();
+      yield UnauthenticatedAuthState();
     }
   }
 

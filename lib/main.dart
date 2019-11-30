@@ -1,5 +1,6 @@
 import 'package:asistencia_v2/asistentes_detalle.dart';
 import 'package:asistencia_v2/authentication/authentication_bloc.dart';
+import 'package:asistencia_v2/authentication/authentication_event.dart';
 import 'package:asistencia_v2/authentication/authentication_state.dart';
 import 'package:asistencia_v2/root.dart';
 import 'package:asistencia_v2/login/login_page.dart';
@@ -34,8 +35,27 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final AuthenticationBloc _authenticationBloc = AuthenticationBloc();
+
+  @override
+  void initState() {
+    super.initState();
+    _authenticationBloc.add(CheckTokenEvent());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _authenticationBloc.close();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -47,7 +67,7 @@ class MyApp extends StatelessWidget {
         '/asistentes': (context) => AsistentesDetallePage(),
       },
       home: BlocProvider<AuthenticationBloc>(
-        builder: (context) => AuthenticationBloc(),
+        builder: (context) => _authenticationBloc,
         child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           condition: (previous, current) =>
               !(current is ErrorAuthState) &&
@@ -55,7 +75,14 @@ class MyApp extends StatelessWidget {
               previous != current,
           builder: (context, state) {
             if (state is UnAuthState) {
-              return LoginPage();
+              // El splash
+              return Scaffold(
+                body: Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              );
             }
             if (state is AuthenticatedAuthState) {
               return RootPage(

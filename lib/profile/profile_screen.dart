@@ -1,3 +1,5 @@
+import 'package:asistencia_v2/authentication/authentication_bloc.dart';
+import 'package:asistencia_v2/authentication/authentication_event.dart';
 /**
   *
   * Creado el 23 de noviembre de 2019
@@ -66,6 +68,13 @@ class ProfileScreenState extends State<ProfileScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text("Profile"),
+            FlatButton.icon(
+              icon: Icon(Icons.settings_power),
+              label: Text("Cerrar sesión"),
+              onPressed: () {
+                BlocProvider.of<AuthenticationBloc>(context).add(LogoutEvent());
+              },
+            )
           ],
         ),
       );

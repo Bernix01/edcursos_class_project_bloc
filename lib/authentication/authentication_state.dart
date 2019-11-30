@@ -16,6 +16,16 @@ class UnAuthState extends AuthenticationState {
   List<Object> get props => [];
 }
 
+class UnauthenticatedAuthState extends AuthenticationState {
+  @override
+  String toString() {
+    return "UnauthenticatedAuthState";
+  }
+
+  @override
+  List<Object> get props => [];
+}
+
 class AuthenticatedAuthState extends AuthenticationState {
   final UserModel user;
 
@@ -29,15 +39,15 @@ class AuthenticatedAuthState extends AuthenticationState {
   @override
   List<Object> get props => [user];
 }
+
 class LoadingAuthState extends AuthenticationState {
   @override
   String toString() => "LoadingAuthState";
 
   @override
   List<Object> get props => [];
-
-  
 }
+
 class ErrorAuthState extends AuthenticationState {
   final String error;
 

@@ -10,7 +10,7 @@ class ApiClient extends BaseClient {
   }
   // End Singleton
 
-  static const String BASE_URL = "http://192.168.1.116:3000";
+  static const String BASE_URL = "https://c227548d.ngrok.io";
 
   Future<StreamedResponse> send(BaseRequest request) {
     request.headers['Content-Type'] = "application/json";

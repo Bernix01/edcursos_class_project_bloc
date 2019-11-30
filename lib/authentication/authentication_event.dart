@@ -3,6 +3,14 @@ abstract class AuthenticationEvent {
   String toString();
 }
 
+class CheckTokenEvent extends AuthenticationEvent{
+
+  @override
+  String toString() {
+    return "CheckTokenEvent";
+  }
+}
+
 class LoginEvent extends AuthenticationEvent {
   final String user;
   final String password;
