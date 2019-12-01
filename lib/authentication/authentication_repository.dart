@@ -28,7 +28,9 @@ class AuthenticationRepository {
 
   Future<String> getToken() async {
     final storage = FlutterSecureStorage();
-    return await storage.read(key: "token");
+    final token = await storage.read(key: "token");
+    ApiClient.instance.authorize(token);
+    return token;
   }
 
   Future<bool> isLoggedIn() async {
@@ -38,6 +40,7 @@ class AuthenticationRepository {
   Future<void> logout() async {
     final storage = FlutterSecureStorage();
     await storage.delete(key: "token");
+    ApiClient.instance.authorize(null);
   }
 }
 
