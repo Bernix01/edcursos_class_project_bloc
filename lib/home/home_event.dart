@@ -37,11 +37,9 @@ class LoadHomeEvent extends HomeEvent {
       if (response.statusCode != 200) {
         throw Exception("No se pudieron cargar los cursos");
       }
-      print("body ${response.body}");
       final Courses cursos = Courses.fromJson(jsonDecode(response.body));
-      print("Cargadoo");
       print(cursos);
-      return InHomeState(0, "Hello world");
+      return InHomeState(0, "Hello world 2");
     } catch (_, stackTrace) {
       developer.log('$_',
           name: 'LoadHomeEvent', error: _, stackTrace: stackTrace);

@@ -20,6 +20,7 @@ class AuthenticationRepository {
       // guardar el tokens
       final storage = FlutterSecureStorage();
       await storage.write(key: "token", value: responseData.token);
+      ApiClient.instance.authorize(responseData.token);
       return LoginResult(null, responseData.user);
     } else {
       return LoginResult(responseData.err, null);

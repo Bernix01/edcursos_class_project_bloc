@@ -67,7 +67,7 @@ class HomeScreenState extends State<HomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text("Flutter files: done"),
+                Text("${(currentState as InHomeState).hello}"),
                 Padding(
                   padding: const EdgeInsets.only(top: 32.0),
                   child: RaisedButton(
